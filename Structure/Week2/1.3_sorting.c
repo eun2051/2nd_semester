@@ -48,6 +48,7 @@ void sort (int list[], int n)
 }
 
 int binsearch(int list[], int searchnum, int left, int right) {
+    //
     int middle;
     int counter = 0;
     while (left <= right) {
@@ -57,6 +58,8 @@ int binsearch(int list[], int searchnum, int left, int right) {
                 left = middle + 1;
                 break;
             case 0 : return counter;
+            //return counter + 1 이 맞는거임
+            //case 0 > 성공했기 때문
             case 1 : right = middle - 1;
         }
         counter++;

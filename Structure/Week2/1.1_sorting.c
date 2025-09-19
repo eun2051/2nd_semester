@@ -11,7 +11,8 @@ int main (void) {
     int A[MAX_SIZE];
     for (i = 0; i < MAX_SIZE; i++) //무작위 정수 생성
             A[i] = rand() % 1000 + 1;
-
+            //n = 100000;
+            //(rand() % n) + 1;
     for (i = 0; i < 100; i++)
         printf("%d ", A[i]);
     printf("\n");

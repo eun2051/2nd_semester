@@ -15,6 +15,20 @@ int main (void) {
         10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000,
         200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000
     };
+
+    /* for (n = 0; n < MAX_SIZE; n += step) {
+            for(i = 0; i < n; i++)
+                B[i] = n - i;
+            start = clock();
+            sort(B, n);
+            duration = ((double)(clock()- start()) / CLOCKS_PER_SEC;
+            // is sorted 할거 하고...
+            if (n == 100) step = 100;
+            if (n == 1000) step = 1000;
+            if (n == 10000) step = 10000;
+            if (n == 100000) step = 100000;
+    } 
+    */
     int num_values = sizeof(n_values) / sizeof(n_values[0]);
     
     printf("   n       시간       정렬상태  \n");
