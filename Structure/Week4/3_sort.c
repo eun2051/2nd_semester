@@ -1,14 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+/*
+#define COMPARE
+#define SWAP
+*/
 #define INITIAL_SIZE 10
 
 typedef struct polynomial {
     float coef;
     int expon;
 } polynomial;
-
+/*
+polynomial *A, *B, *D;
+int i, max_D; // *D -> attach 때문에 전역으로 관리해야함
+//메모리 관리 -> max_D
+*/
 polynomial* D_poly;
 int D_size = 0;
 int D_capacity = INITIAL_SIZE;
@@ -218,3 +225,88 @@ void free_polynomial(polynomial* poly) {
         free(poly);
     }
 }
+
+/*int main () {
+    float coef;
+    int expon;
+    int n, max_A, max_B;
+
+    while (1) {
+        max_A = max_B = MAX_TERMS;
+
+        A = (polynomial *)malloc(sizeof(polynomial) * max_A);
+        B = (polynomial *)malloc(sizeof(polynomial) * max_B);
+
+        printf("3.1. 다항식 생성\n")
+        for (n = 0; ; n++) {
+            if (n == max_A) {
+                max_A += MAX_TERMS;
+                A = (polynomial *)realloc(A, sizeof(polynomial) * max_A);
+            }
+            printf("A(x)의 항을 입력하세요 : ");
+            scanf();
+            A[n].coef = coef;
+            A[n].expon = expon;
+
+            if (expon < 0)
+                break;
+        }
+        sortpoly(A);
+        printf("다항식A(X)\n");
+        print(A);
+
+        for (n = 0; ; n++) {
+            if (n == max_B) {
+                max_B += MAX_TERMS;
+                B = (polynomial *)realloc(B, sizeof(polynomial) * max_B);
+            }
+            printf("B(x)의 항을 입력하세요 : ");
+            scanf("%f %d", &coef, &expon));
+            B[n].coef = coef;
+            B[n].expon = expon;
+
+            if (expon < 0)
+                break;
+        }
+        sortpoly(B);
+        printf("다항식B(X)\n");
+        print(B);
+
+        printf("3.2 다항식 덧셈\n");
+        k = 0;
+        max_D = MAX_TERMS;
+        D = (polynomial *)re
+    }
+}
+
+void sortpoly(polynomial *A)
+{
+    int i, j, max, temp;
+    float tempf;
+    for (i = 0; A[i].expon > -1; i++)
+    {
+        max = i;
+        for (j = i + 1; A[j].expon > -1; j++)
+            if (A[j].expon > A[max].expon)
+                max = j;
+        SWAP(A[i].expon, A[max].expon, temp);
+        SWAP(A[i].coef, A[max].coef, tempf);
+    }
+}
+
+polynomial * padd(polynomial){
+    float cofficient;
+    int i= 0, j = 0;
+    while
+}
+
+void attach(float coefficient, int exponent) {
+    if ( k == max_d) {
+        max_D += mAX_TERMS;
+        D = (polynomial *)realloc(D, sizeof(polynommial)* max_D)
+    }
+    D[n].coef = coefficient;
+    D[n].expon = exponent;
+    k++;
+}
+*/
