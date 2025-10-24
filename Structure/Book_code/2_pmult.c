@@ -21,23 +21,73 @@ void attach(float coefficient, int exponent)
     terms[avail++].expon = exponent;
 }
 
-void pmult(int starta, int finisha, int startb, int finishb, int *startd, int *finishd)
-{  /* A(x)와 B(x)를 곱하여 D(x)를 생성한다. */
+void padd(int starta, int finisha, int startb, int finishb, int *startd, int *finishd)
+{
     float coefficient;
-    int exponent;
-    int i,j;
-    int s;
     *startd = avail;
- 
-    for(i = starta; i<=finisha;i++)
-    {
-        for(j=startb;j<=finishb;j++)
+    while (starta <= finisha && startb <= finishb)
+        switch(COMPARE(terms[starta].expon, terms[startb].expon))
         {
-            coefficient = terms[i].coef * terms[j].coef;   //계수의 곱
-            exponent = terms[i].expon + terms[j].expon;  // 지수의 합
-            s=finisha+finishb;                        // s의 위치 지정
-            attach2(coefficient,exponent,s);          //곱셈항 첨가   
+            case -1 : 
+                attach(terms[startb].coef, terms[startb].expon);
+                startb++;
+                break;
+            case 0 :
+                coefficient = terms[starta].coef + terms[startb].coef;
+                if (coefficient) attach(coefficient, terms[starta].expon);
+                starta++; startb++;
+                break;
+            case 1 :
+                attach(terms[starta].coef, terms[starta].expon);
+                starta++;
         }
+        for ( ; starta <= finisha; starta++)
+            attach(terms[starta].coef, terms[starta].expon);
+        for ( ; startb <= finishb; startb++)
+            attach(terms[startb].coef, terms[startb].expon);
+        *finishd = avail - 1;
+}
+
+void pmult(int starta, int finisha, int startb, int finishb, int *startd, int *finishd)
+{
+    int i, j;
+    int current_d_start, current_d_finish; // 현재까지 누적된 D(x)의 위치
+    int temp_start, temp_finish;            // A[i]와 B를 곱한 임시 결과의 위치
+    int next_start, next_finish;            // 다음 반복을 위한 임시 변수
+    
+    // 1. D(x)의 시작 위치를 avail로 지정합니다.
+    *startd = avail;
+    *finishd = avail - 1; // 초기에는 빈 다항식으로 설정
+
+    // A(x)의 모든 항을 순회합니다.
+    for (i = starta; i <= finisha; i++) {
+        
+        // 2. 임시 배열에 A[i]와 B(x)의 곱셈 결과를 저장합니다.
+        temp_start = avail;
+        for (j = startb; j <= finishb; j++) {
+            float coef = terms[i].coef * terms[j].coef;
+            int expon = terms[i].expon + terms[j].expon;
+            if (coef != 0) {
+                attach(coef, expon);
+            }
+        }
+        temp_finish = avail - 1; // 임시 결과의 끝
+
+        // 3. 기존의 누적 결과 D(x)와 현재 임시 결과를 padd로 합산/정리합니다.
+
+        // 기존 D의 위치를 가져옵니다.
+        current_d_start = *startd;
+        current_d_finish = *finishd;
+        
+        // 새로운 D가 저장될 위치를 avail로 지정합니다.
+        next_start = avail; 
+
+        // padd를 사용하여 기존 D와 임시 결과를 합치고 새로운 D를 만듭니다.
+        // *startd와 *finishd가 다음 D의 범위가 됩니다.
+        padd(current_d_start, current_d_finish, temp_start, temp_finish, startd, finishd);
+        
+        // 참고: padd가 실행된 후, 이전의 D와 Temp 영역은 버려지고, 
+        // 새로운 D가 avail 이후에 저장됩니다. (terms 배열의 비효율적 사용)
     }
-    *finishd = avail - 1;
+    // 루프가 완료되면 *startd와 *finishd가 최종 결과 D(x)를 가리킵니다.
 }

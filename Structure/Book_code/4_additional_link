@@ -1,0 +1,95 @@
+/* Chain에 대한 연산
+- Chain의 방향을 반대로 : invert()
+- 두개의 chain을 통합 : concatenate */
+#include <stdio.h>
+#include <stdlib.h>
+typedef int element;
+
+struct node {
+    element data;
+    struct node *link;
+};
+typedef struct node *list_pointer;
+
+// lead가 가리키는 리스트의 방향을 반대로 변경
+list_pointer invert(struct node *lead)
+{
+    struct node *middle, *tail;
+    middle = NULL;
+    while (lead) {
+        tail = middle;
+        middle = lead;
+        lead = lead->link;
+        middle->link = tail;
+    }
+    return middle;
+}
+
+/* ptr1 다음에 ptr2를 연결한 새로운 리스트 반환
+    prt1이 가리키는 리스트는 새로운 리스트로 변경됨*/
+struct node *concatenate (struct node *ptr1, struct node *ptr2)
+{
+    struct node *t;
+    if (ptr1 == NULL) return ptr2;
+    else {
+        if (ptr2 != NULL) {
+            for (t = ptr1; t->link != NULL; t = t->link);
+            t->link = ptr2;
+        }
+        return ptr1;
+    }
+}
+
+list_pointer create_node(element data) {
+    list_pointer new_node = (list_pointer)malloc(sizeof(struct node));
+    if (new_node == NULL) {
+        perror("메모리 할당 실패");
+        exit(EXIT_FAILURE);
+    }
+    new_node->data = data;
+    new_node->link = NULL;
+    return new_node;
+}
+
+void print_list(list_pointer head) {
+    if (head == NULL) {
+        printf("(빈 리스트)\n");
+        return;
+    }
+    list_pointer current = head;
+    while (current != NULL) {
+        printf("%d -> ", current->data);
+        current = current->link;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    // 1. 리스트 A 생성: 10 -> 20 -> 30
+    list_pointer A = create_node(10);
+    A->link = create_node(20);
+    A->link->link = create_node(30);
+
+    // 2. 리스트 B 생성: 40 -> 50
+    list_pointer B = create_node(40);
+    B->link = create_node(50);
+    
+    printf("--- 초기 리스트 상태 ---\n");
+    printf("리스트 A: ");
+    print_list(A);
+    printf("리스트 B: ");
+    print_list(B);
+    printf("------------------------\n");
+
+    list_pointer C = concatenate(A, B); // A에 B를 연결
+    printf("\n[concatenate 테스트]\n");
+    printf("리스트 A + B: ");
+    print_list(C); // 예상: 10 -> 20 -> 30 -> 40 -> 50 -> NULL
+
+    list_pointer D = invert(C); // 연결된 리스트 C의 방향을 반대로 변경
+    printf("\n[invert 테스트]\n");
+    printf("리스트 A+B 역순: ");
+    print_list(D); // 예상: 50 -> 40 -> 30 -> 20 -> 10 -> NULL
+
+    return 0;
+}
