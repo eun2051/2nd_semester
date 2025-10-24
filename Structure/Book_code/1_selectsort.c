@@ -27,11 +27,12 @@ void main(void)
 	printf("\n");
 }
 
+//list[i] ~ list[n-1]까지 정렬
 void sort(int list[], int n)
 {
 	int i, j, min, temp;
 	for (i = 0; i < n-1; i++)
-	{ //list[i] ~ list[n-1]까지 정렬
+	{
 		min = i; //최소값이 i에 있다고 일단 가정
 		for (j = i+1; j < n; j++)
 		//i 위치 다음의 모든 대상에 대해
