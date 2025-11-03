@@ -12,6 +12,7 @@ struct node {
     int data;
     struct node *next;
 };
+
 struct node *createNode(int digit);
 struct node *reverse(const char *numstr);
 struct node *numplus(struct node *num1, struct node *num2);
@@ -20,7 +21,6 @@ struct node *nummul(struct node *num1, struct node *num2);
 char        *readstr(FILE *fp);
 void        printList(struct node *head);
 void        freeList(struct node *head);
-
 
 struct node *createNode(int digit)
 {
