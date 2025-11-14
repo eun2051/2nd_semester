@@ -16,7 +16,7 @@ void bulk_insert(BST<string,int> *);
 void print_tree(BST<string, int> *);
 void convert_to_lower(char *);
 
-void main()
+int main()
 {
 	BST<string,int> *tree = new BST<string,int>;
 	TreeNode<string,int> *node;
@@ -58,7 +58,7 @@ void main()
 				printf("\n");
 				break;
 			case 7:	
-				return;
+				return -1;
 		}
 	}
 }
@@ -104,7 +104,7 @@ void bulk_insert(BST<string, int> *tree)
 
 void convert_to_lower(char *token)
 {
-	for (int i = 0; token[i] != NULL; i++) {
+	for (int i = 0; token[i] != '\0'; i++) {
 		if (isupper(token[i]))
 			token[i] = 'a' + token[i] - 'A';
 	}
