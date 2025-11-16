@@ -1,0 +1,63 @@
+12.1. 랜덤 생성 데이터의 정렬
+  원소 수 : 1000
+  selection sort time: 0.001000
+  insertion sort time: 0.001000
+      quick sort time: 0.000000
+
+  원소 수 : 10000
+  selection sort time: 0.118000
+  insertion sort time: 0.056000
+      quick sort time: 0.001000
+
+  원소 수 : 100000
+  selection sort time: 10.538000
+  insertion sort time: 5.573000
+      quick sort time: 0.014000
+
+  원소 수 : 1000000
+  selection sort time: 1043.156000
+  insertion sort time: 549.247000
+      quick sort time: 0.169000
+
+12.2. 정렬된 데이터의 정렬
+12.2.1. 오름차순 정렬된 데이터의 정렬
+  원소 수 : 1000
+  selection sort time: 0.001000
+  insertion sort time: 0.000000
+      quick sort time: 0.002000
+
+  원소 수 : 10000
+  selection sort time: 0.111000
+  insertion sort time: 0.000000
+      quick sort time: 0.166000
+
+  원소 수 : 100000
+  selection sort time: 10.365000
+  insertion sort time: 0.001000
+      quick sort time: 16.373000
+
+  원소 수 : 1000000
+  selection sort time: 1038.756000
+  insertion sort time: 0.004000
+      quick sort time: 1662.054000
+
+12.2.2. 내림차순 정렬된 데이터의 정렬
+  원소 수 : 1000
+  selection sort time: 0.001000
+  insertion sort time: 0.002000
+      quick sort time: 0.001000
+
+  원소 수 : 10000
+  selection sort time: 0.100000
+  insertion sort time: 0.113000
+      quick sort time: 0.135000
+
+  원소 수 : 100000
+  selection sort time: 9.879000
+  insertion sort time: 10.997000
+      quick sort time: 12.866000
+
+  원소 수 : 1000000
+  selection sort time: 990.907000
+  insertion sort time: 1104.628000
+      quick sort time: 1286.496000
