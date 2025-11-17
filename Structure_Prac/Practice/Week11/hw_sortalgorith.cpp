@@ -47,7 +47,7 @@ int main(void)
         print_array(n, times);
         printf("\n");
     }
-    printf("12.2. 정렬된 데이터의 정렬");
+    printf("12.2. 정렬된 데이터의 정렬\n");
     printf("12.2.1. 오름차순 정렬된 데이터의 정렬\n");
     for (int j = 0; j < 4; j++) {
         n = n_value[j];
@@ -164,8 +164,7 @@ void selectionSort(element a[], int n)
 
 void insert(element e, element a[], int i)
 {
-    a[0] = e;
-    while (e.key < a[i].key)
+    while (i >= 1 && e.key < a[i].key)
     {
         a[i + 1] = a[i];
         i--;
@@ -183,11 +182,13 @@ void insertionSort(element a[], int n)
 
 void quickSort(element a[], int left, int right)
 {
-    int i , j;
+    int i , j, k;
     double pivot;
     element temp;
     
     if (left < right) {
+        k = left + (rand() % (right - left + 1));
+        SWAP(a[left], a[k], temp);
         i = left;
         j = right + 1;
         pivot = a[left].key;
