@@ -89,72 +89,6 @@ int main() {
     return 0;
 }
 
-//랜덤 트리 생성 함수
-struct node* make_random_tree(int n)
-{
-    if (n < 1)
-        return NULL;
-    struct node *root = create_node(1);
-    for (int i = 2; i <= n; i++) {
-        struct node *current = root;
-        while (1) {
-            int direction = rand() % 2;
-
-            if (direction == 0) {
-                if (current->lchild == NULL) {
-                    current->lchild = create_node(i);
-                    break;
-                } else {
-                    current = current->lchild;
-                }
-            } else {
-                if (current->rchild == NULL) {
-                    current->rchild = create_node(i);
-                    break;
-                } else {
-                    current = current->rchild;
-                }
-            }
-        }
-    }
-    return root;
-}
-
-// 트리 복사 함수
-struct node *copy(struct node *original)
-{
-    struct node *temp;
-    if (original) {
-        temp = (struct node *)malloc(sizeof(struct node));
-        temp->lchild = copy(original->lchild);
-        temp->rchild = copy(original->rchild);
-        temp->data = original->data;
-        return temp;
-    }
-    return NULL;
-}
-
-// 좌우 대칭 함수
-void swap(struct node *ptr) {
-    if (ptr) {
-        struct node *temp = ptr->lchild;
-        ptr->lchild = ptr->rchild;
-        ptr->rchild = temp;
-        
-        swap(ptr->lchild);
-        swap(ptr->rchild);
-    }
-}
-
-//동일성 검사
-int equal(struct node *first, struct node *second)
-{
-    return((!first && !second) || (first && second &&
-        (first->data == second->data) &&
-        equal(first->lchild, second->lchild) &&
-        equal(first->rchild, second->rchild)));
-}
-
 //트리 생성 함수
 struct node *make_tree_by_code()
 {
@@ -210,4 +144,70 @@ void postorder(struct node *ptr)
         postorder(ptr->rchild);;
         printf("%d ", ptr->data);
     }
+}
+
+// 트리 복사 함수
+struct node *copy(struct node *original)
+{
+    struct node *temp;
+    if (original) {
+        temp = (struct node *)malloc(sizeof(struct node));
+        temp->lchild = copy(original->lchild);
+        temp->rchild = copy(original->rchild);
+        temp->data = original->data;
+        return temp;
+    }
+    return NULL;
+}
+
+// 좌우 대칭 함수
+void swap(struct node *ptr) {
+    if (ptr) {
+        struct node *temp = ptr->lchild;
+        ptr->lchild = ptr->rchild;
+        ptr->rchild = temp;
+        
+        swap(ptr->lchild);
+        swap(ptr->rchild);
+    }
+}
+
+//동일성 검사
+int equal(struct node *first, struct node *second)
+{
+    return((!first && !second) || (first && second &&
+        (first->data == second->data) &&
+        equal(first->lchild, second->lchild) &&
+        equal(first->rchild, second->rchild)));
+}
+
+//랜덤 트리 생성 함수
+struct node* make_random_tree(int n)
+{
+    if (n < 1)
+        return NULL;
+    struct node *root = create_node(1);
+    for (int i = 2; i <= n; i++) {
+        struct node *current = root;
+        while (1) {
+            int direction = rand() % 2;
+
+            if (direction == 0) {
+                if (current->lchild == NULL) {
+                    current->lchild = create_node(i);
+                    break;
+                } else {
+                    current = current->lchild;
+                }
+            } else {
+                if (current->rchild == NULL) {
+                    current->rchild = create_node(i);
+                    break;
+                } else {
+                    current = current->rchild;
+                }
+            }
+        }
+    }
+    return root;
 }
