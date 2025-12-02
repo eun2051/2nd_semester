@@ -143,19 +143,6 @@ treePointer create_node(int key, double value)
     return newNode;
 }
 
-treePointer Search(treePointer tree, int k)
-{
-    while (tree)
-    {
-        if (k == tree->key) return tree;
-        if (k < tree->key)
-            tree = tree->lchild;
-        else
-            tree = tree->rchild;
-    }
-    return NULL;
-}
-
 void inorder(treePointer ptr)
 {
     if (ptr) {
@@ -167,12 +154,17 @@ void inorder(treePointer ptr)
 
 treePointer make_bst(int n) {
     treePointer tree = NULL;
-    for(int i=0; i<n; i++) {
-        int key = (int)(((rand() % 0x8000) / (0x7fff * 1.0)) * 100000000);
-        if (key <= 0) key = rand() % 100000000 + 1; 
-        
-        double value = 1.0 / key;
-        insert(&tree, key, value);
+    int count = 0;
+    int check = 0;
+    while (count < n) {
+        double ratio = (double)rand() / RAND_MAX;
+        int key = (int)(ratio * 100000000);
+        if (key <= 0) key = 1;
+        if (search(tree, key, &check) == NULL) {
+            double value = 1.0 / key;
+            insert(&tree, key, value);
+            count++;
+        }
     }
     return tree;
 }
